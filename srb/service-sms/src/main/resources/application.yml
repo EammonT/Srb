@@ -1,0 +1,60 @@
+server:
+  port: 8120
+spring:
+  profiles:
+    active: dev
+  application:
+    name: service-sms
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password: tym917
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 20
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+  rabbitmq:
+    host: 192.168.1.129
+    port: 5672
+    virtual-host: /srb
+    username: srb
+    password: 123456
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 60000
+  sentinel:
+    enabled: true
+logging:
+  level:
+    com.tym.srb.sms.client.CoreUserInfoClient: DEBUG #日志级别
+
+#短信配置容联云
+rckj:
+  accountSId: 2c9488768561782601857d10630a0236 #自己的accountSId
+  accountToken: 15004582593d41de8baad8ce4100d1ff #自己的accountToken
+  appId: 15004582593d41de8baad8ce4100d1ff #自己的accountToken
+  serverIp: app.cloopen.com  #默认都是这个
+  serverPort: 8883  #默认都是这个
+
+#aliyun:
+#  sms:
+#    region-id: cn-hangzhou
+#    key-id: LTAI5tJY5vxYAerBJ69YgfPz
+#    key-secret: uVzkoQOIbDXhlLPevquO2b15O3kpa2
+#    template-code: #你的短信模板code
+#    sign-name: #你的短信模板签名
